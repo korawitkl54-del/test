@@ -526,83 +526,53 @@
     // ================= ALGORITHMS IMPLEMENTATION =================
 
     // Mathematical Helper for combination calculation C(n, r) USING Decimal.js
-    function calculateCombination(n, r) {
-      if (r < 0 || r > n) return new Decimal(0);
-      if (r === 0 || r === n) return new Decimal(1);
-      if (r > n / 2) r = n - r; // Optimize
+   function calculateCombination(n, r) {
+  if (r < 0 || r > n) return new Decimal(0);
+  if (r === 0 || r === n) return new Decimal(1);
+  if (r > n / 2) r = n - r;
 
-      let res = new Decimal(1);
-      for (let i = 1; i <= r; i++) {
-        res = res.times(n - r + i).dividedBy(i);
-      }
-      return res;
-    }
-
-    // Algorithm A: Brute-Force Cumulative Product (O(k)) USING Decimal.js
+  let res = new Decimal(1);
+  for (let i = 1; i <= r; i++) {
+    res = res.times(n - r + i).dividedBy(i);
+  }
+  return res;
+}
+ // Algorithm A: Brute-Force Cumulative Product (O(k)) USING Decimal.js
     function calculateBruteForce(a, k) {
-      let result = new Decimal(1.0);
-      const decA = new Decimal(a);
-      const aCubed = decA.pow(3);
-      
-      for (let n = a + 1; n <= k; n++) {
-        const numerator = new Decimal(n + 1).pow(3).plus(aCubed);
-        const denominator = new Decimal(n).pow(3).minus(aCubed);
-        result = result.times(numerator.dividedBy(denominator));
-      }
-      return result;
-    }
+  let result = new Decimal(1.0);
+  const decA = new Decimal(a);
+  const aCubed = decA.pow(3);
+  
+  for (let n = a + 1; n <= k; n++) {
+    const numerator = new Decimal(n + 1).pow(3).plus(aCubed);
+    const denominator = new Decimal(n).pow(3).minus(aCubed);
+    result = result.times(numerator.dividedBy(denominator));
+  }
+  return result;
+}
 
     // Algorithm B: High-speed Closed-form Formula (O(1)) USING Decimal.js
     function calculateByFormula(a, k) {
-     // 1. ฟังก์ชันคำนวณ Combination
-    function calculateCombination(n, r) {
-      if (r < 0 || r > n) return new Decimal(0);
-      if (r === 0 || r === n) return new Decimal(1);
-      if (r > n / 2) r = n - r;
+  const comb = calculateCombination(k + a + 1, 2 * a + 1);
+  const decA = new Decimal(a);
+  const aSquared = decA.pow(2);
 
-      let res = new Decimal(1);
-      for (let i = 1; i <= r; i++) {
-        res = res.times(n - r + i).dividedBy(i);
-      }
-      return res;
-    }
+  let numProd = new Decimal(1);
+  for (let i = 2; i <= a; i++) {
+    const decI = new Decimal(i);
+    const term = decI.pow(2).plus(decA.times(decI)).plus(aSquared);
+    numProd = numProd.times(term);
+  }
 
-    // 2. ฟังก์ชัน Algorithm A
-    function calculateBruteForce(a, k) {
-      let result = new Decimal(1.0);
-      const decA = new Decimal(a);
-      const aCubed = decA.pow(3);
-      
-      for (let n = a + 1; n <= k; n++) {
-        const numerator = new Decimal(n + 1).pow(3).plus(aCubed);
-        const denominator = new Decimal(n).pow(3).minus(aCubed);
-        result = result.times(numerator.dividedBy(denominator));
-      }
-      return result;
-    }
+  let denProd = new Decimal(1);
+  for (let j = k - a + 2; j <= k; j++) {
+    const decJ = new Decimal(j);
+    const term = decJ.pow(2).plus(decA.times(decJ)).plus(aSquared);
+    denProd = denProd.times(term);
+  }
 
-    // 3. ฟังก์ชัน Algorithm B
-    function calculateByFormula(a, k) {
-      const comb = calculateCombination(k + a + 1, 2 * a + 1);
-      const decA = new Decimal(a);
-      const aSquared = decA.pow(2);
-
-      let numProd = new Decimal(1);
-      for (let i = 2; i <= a; i++) {
-        const decI = new Decimal(i);
-        const term = decI.pow(2).plus(decA.times(decI)).plus(aSquared);
-        numProd = numProd.times(term);
-      }
-
-      let denProd = new Decimal(1);
-      for (let j = k - a + 2; j <= k; j++) {
-        const decJ = new Decimal(j);
-        const term = decJ.pow(2).plus(decA.times(decJ)).plus(aSquared);
-        denProd = denProd.times(term);
-      }
-
-      return comb.times(numProd.dividedBy(denProd));
-    }
+  return comb.times(numProd.dividedBy(denProd));
+}
     // ================= BENCHMARKING ENGINE WITH HIGH PRECISION =================
     // Micro-benchmarking loop technique to secure non-zero float times
     function getBenchmarkTimeA(a, k) {
