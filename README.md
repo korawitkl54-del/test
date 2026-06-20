@@ -110,7 +110,7 @@
       <div class="card-pastel p-6 sm:p-8 rounded-3xl shadow-sm border border-white/60 flex flex-col md:flex-row items-center gap-6">
         <div class="space-y-4 md:w-2/3">
           <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-700">
-            <span class="material-icons text-sm">stars</span> นวัตกรรมการคำนวณ ม.ปลาย
+            <span class="material-icons text-sm">stars</span> นวัตกรรมการคำนวณ ม.ต้น
           </span>
           <h2 class="text-xl sm:text-2xl lg:text-3xl font-extrabold text-slate-800 leading-snug">
             เทเลสโคปิกกำลังสาม (Telescoping Cubic): ยุบรูปสมการคณิตศาสตร์บริสุทธิ์สู่อัลกอริทึมแห่งอนาคt
@@ -149,7 +149,7 @@
             <div class="bg-emerald-50/50 p-4 rounded-2xl border border-emerald-100 flex flex-col items-center">
               <p class="text-xs text-emerald-700 font-semibold mb-3 self-start">2. สูตรสำเร็จรูปที่ผ่านการยุบรูป (Closed-form Formula)</p>
               <div class="text-center p-3 bg-white rounded-xl shadow-sm border border-emerald-50 w-full">
-                $$\binom{k+a+1}{2a+1} \times \frac{\prod_{i=2}^{a}(i^2+ai+a^2)}{\prod_{j=k-a+2}^{k}(j^2-aj+a^2)}$$
+                $$\binom{k+a+1}{2a+1} \times \frac{\prod_{i=2}^{a}(i^2+ai+a^2)}{\prod_{j=k-a+2}^{k}(j^2+aj+a^2)}$$
               </div>
             </div>
           </div>
