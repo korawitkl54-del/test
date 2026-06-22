@@ -1,4 +1,7 @@
 
+
+
+
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -538,7 +541,7 @@
   return res;
 }
  // Algorithm A: Brute-Force Cumulative Product (O(k)) USING Decimal.js
-    function calculateBruteForce(a, k) {
+function calculateBruteForce(a, k) {
   let result = new Decimal(1.0);
   const decA = new Decimal(a);
   const aCubed = decA.pow(3);
@@ -548,11 +551,11 @@
     const denominator = new Decimal(n).pow(3).minus(aCubed);
     result = result.times(numerator.dividedBy(denominator));
   }
-  return result;
+  return result; // คืนค่าตัวเลขเต็มๆ ไปใช้คำนวณ Benchmark ก่อน
 }
 
-    // Algorithm B: High-speed Closed-form Formula (O(1)) USING Decimal.js
-    function calculateByFormula(a, k) {
+// Algorithm B: High-speed Closed-form Formula (O(1)) USING Decimal.js
+function calculateByFormula(a, k) {
   const comb = calculateCombination(k + a + 1, 2 * a + 1);
   const decA = new Decimal(a);
   const aSquared = decA.pow(2);
@@ -565,27 +568,29 @@
   }
 
   let denProd = new Decimal(1);
-  for (let j = k - a + 2; j <= k; j++) {
+  // 📍 แก้จาก j <= j = k เป็น j <= k แค่นี้เลยครับอ้าย!
+  for (let j = k - a + 2; j <= k; j++) { 
     const decJ = new Decimal(j);
     const term = decJ.pow(2).plus(decA.times(decJ)).plus(aSquared);
     denProd = denProd.times(term);
   }
 
-  return comb.times(numProd.dividedBy(denProd));
+  return comb.times(numProd.dividedBy(denProd)); // คืนค่าตัวเลขเต็มๆ ไปใช้คำนวณ Benchmark ก่อน
 }
-    // ================= BENCHMARKING ENGINE WITH HIGH PRECISION =================
-    // Micro-benchmarking loop technique to secure non-zero float times
-    function getBenchmarkTimeA(a, k) {
-      const iterations = k < 100 ? 5000 : (k < 1000 ? 500 : (k < 10000 ? 50 : 1));
-      
-      const start = getHighPrecisionTime();
-      for (let i = 0; i < iterations; i++) {
-        calculateBruteForce(a, k);
-      }
-      const end = getHighPrecisionTime();
-      
-      return (end - start) / iterations; // Average time in milliseconds
-    }
+
+// ================= BENCHMARKING ENGINE WITH HIGH PRECISION =================
+// Micro-benchmarking loop technique to secure non-zero float times
+function getBenchmarkTimeA(a, k) {
+  const iterations = k < 100 ? 5000 : (k < 1000 ? 500 : (k < 10000 ? 50 : 1));
+  
+  const start = getHighPrecisionTime();
+  for (let i = 0; i < iterations; i++) {
+    calculateBruteForce(a, k);
+  }
+  const end = getHighPrecisionTime();
+  
+  return (end - start) / iterations; // Average time in milliseconds
+}
 
     function getBenchmarkTimeB(a, k) {
       const iterations = 5000;
@@ -601,6 +606,9 @@
 
     // ================= RUN SYSTEM SIMULATION =================
     async function runSimulation() {
+      // 📍 บรรทัดนี้สำคัญมาก! ตั้งค่าให้คำนวณแม่นยำลึก 35 ตำแหน่ง
+      Decimal.set({ precision: 35 });
+
       const a = parseInt(document.getElementById('input-a').value);
       const k = parseInt(document.getElementById('input-k').value);
 
@@ -624,11 +632,13 @@
 
       // 1. Run Algorithm A & Benchmark time
       const timeElapsedA = getBenchmarkTimeA(a, k);
-      const resA = calculateBruteForce(a, k);
+      // 📍 [แก้ไขตรงนี้] สั่งดึงคำตอบแบบตัดเศษเหลือ 4 ตำแหน่งทันที!
+      const resA = calculateBruteForce(a, k).toFixed(4);
 
       // 2. Run Algorithm B & Benchmark time
       const timeElapsedB = getBenchmarkTimeB(a, k);
-      const resB = calculateByFormula(a, k);
+      // 📍 [แก้ไขตรงนี้] สั่งดึงคำตอบแบบตัดเศษเหลือ 4 ตำแหน่งทันที!
+      const resB = calculateByFormula(a, k).toFixed(4);
 
       // Show loop rounds: k - a
       const rounds = k - a;
