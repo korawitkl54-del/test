@@ -116,7 +116,7 @@
             <span class="material-icons text-sm">stars</span> นวัตกรรมการคำนวณ ม.ต้น
           </span>
           <h2 class="text-xl sm:text-2xl lg:text-3xl font-extrabold text-slate-800 leading-snug">
-            เทเลสโคปิกกำลังสาม (Telescoping Cubic): ยุบรูปสมการคณิตศาสตร์บริสุทธิ์สู่อัลกอริทึมแห่งอนาคt
+            เทเลสโคปิกกำลังสาม (Telescoping Cubic): ยุบรูปสมการคณิตศาสตร์บริสุทธิ์สู่อัลกอริทึมแห่งอนาคต
           </h2>
           <p class="text-slate-600 leading-relaxed text-sm sm:text-base">
             ยินดีต้อนรับสู่ระบบเรียนรู้เชิงโต้ตอบ! โครงงานนี้เกิดจากความตั้งใจที่จะรวมเอา **คณิตศาสตร์บริสุทธิ์ (Pure Mathematics)** ในส่วนของอนุกรมคูณสะสม (Cumulative Product) และหลักการของ **เทเลสโคปิก (Telescoping)** มาร่วมขับเคลื่อนการพัฒนาโปรแกรมคอมพิวเตอร์ 
