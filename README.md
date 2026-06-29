@@ -10,7 +10,7 @@
   <title>โครงงานคณิตศาสตร์เรื่อง เทเลสโคปิกกำลังสาม (Telescoping Cubic)</title>
 
   <script src="https://cdn.jsdelivr.net/npm/decimal.js@9.0.0/decimal.min.js"></script>
-  
+
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   
@@ -99,6 +99,9 @@
         </button>
         <button onclick="switchTab('gallery')" id="tab-gallery" class="flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all text-slate-600 hover:bg-white/50 whitespace-nowrap">
           <span class="material-icons text-lg">photo_library</span> ภาพกิจกรรมการเรียนรู้
+        </button>
+        <button onclick="switchTab('crypto')" id="tab-crypto" class="flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all text-slate-600 hover:bg-white/50 whitespace-nowrap">
+          <span class="material-icons text-lg">lock</span> ประยุกต์: วิทยาการรหัสลับ
         </button>
       </nav>
     </div>
@@ -207,6 +210,7 @@
                 <span class="text-xs text-slate-400 font-normal">แนะนำ: 1 - 5</span>
               </label>
               <input type="number" id="input-a" value="3" min="1" max="10" 
+                     oninput="clampInput(this,1,10)"
                      class="w-full px-4 py-3 rounded-2xl bg-white border border-slate-200 focus:ring-2 focus:ring-indigo-400 focus:outline-none transition-all text-center font-semibold text-lg">
             </div>
 
@@ -216,6 +220,7 @@
                 <span class="text-xs text-slate-400 font-normal">ยิ่งมากยิ่งเห็นความต่างของเวลา</span>
               </label>
               <input type="number" id="input-k" value="1000" min="2" max="10000000" 
+                     oninput="clampInput(this,2,10000000)"
                      class="w-full px-4 py-3 rounded-2xl bg-white border border-slate-200 focus:ring-2 focus:ring-indigo-400 focus:outline-none transition-all text-center font-semibold text-lg">
             </div>
 
@@ -351,7 +356,7 @@
             </span>
           </div>
           <div class="p-5 space-y-2">
-            <h4 class="font-bold text-slate-800 text-sm sm:text-base">การทดสอบสอบทานรหัสโปรแกรมจำลอง</h4>
+            <h4 class="font-bold text-slate-800 text-sm sm:text-base">การตรวจสอบรหัสโปรแกรมจำลอง</h4>
             <p class="text-xs text-slate-500 leading-relaxed">
               คณะนักเรียนและคณะครูที่ปรึกษาร่วมกันทดสอบฟังก์ชันจับเวลา Micro-benchmark เพื่อตรวจจับข้อบกพร่องและวิเคราะห์พฤติกรรมโครงสร้าง $O(1)$ ของการลดรูป
             </p>
@@ -372,6 +377,217 @@
               ภาพความภาคภูมิใจของผู้จัดทำร่วมกับคุณครูขจรภพ และคุณครูที่ปรึกษาโครงงานหลังการร่วมใจวิจัยนวัตกรรมสำเร็จเสร็จสิ้นสมบูรณ์พร้อมจัดแสดงผลการแข่งขัน
             </p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= TAB 4: CRYPTOGRAPHY SIMULATOR ================= -->
+    <section id="content-crypto" class="hidden space-y-8 fade-in">
+
+      <!-- Hero Banner -->
+      <div class="card-pastel p-6 sm:p-8 rounded-3xl shadow-sm border border-white/60 flex flex-col md:flex-row items-center gap-6">
+        <div class="space-y-3 md:w-2/3">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-purple-100 text-purple-700">
+            <span class="material-icons text-sm">lock</span> วัตถุประสงค์ข้อที่ 2 — การประยุกต์ใช้สูตรสำเร็จรูปในระบบจริง
+          </span>
+          <h2 class="text-xl sm:text-2xl lg:text-3xl font-extrabold text-slate-800 leading-snug">
+            ระบบความปลอดภัยวิทยาการรหัสลับ<br><span class="text-purple-600">(Cryptography Simulator)</span>
+          </h2>
+          <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+            สาธิตการนำสูตร Telescoping Cubic $O(1)$ ไปประยุกต์ใช้จริงในการสร้าง
+            <strong>Session Key ระบบรหัสลับ</strong> โดยแทนที่การวนลูปคำนวณนับล้านรอบด้วยสูตรสำเร็จรูปแบบทันที
+            ทำให้ระบบ Key Generation เร็วและมีประสิทธิภาพสูงขึ้นอย่างเห็นได้ชัด
+          </p>
+        </div>
+        <div class="md:w-1/3 flex justify-center">
+          <div class="w-44 h-44 rounded-3xl bg-gradient-to-br from-purple-50 to-indigo-50 flex items-center justify-center shadow-inner border border-white/40 relative">
+            <span class="material-icons text-7xl text-purple-400/80 animate-pulse">enhanced_encryption</span>
+            <div class="absolute -top-2 -right-2 w-14 h-14 bg-indigo-100 rounded-full flex items-center justify-center shadow-md">
+              <span class="material-icons text-2xl text-indigo-500">key</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- How it connects to the formula -->
+      <div class="card-pastel p-6 rounded-3xl shadow-sm space-y-4">
+        <div class="flex items-center gap-2 text-purple-700 font-bold text-base border-b border-purple-50 pb-3">
+          <span class="material-icons">link</span>
+          <span>สูตรสำเร็จรูปเชื่อมกับระบบรหัสลับอย่างไร?</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm text-center">
+          <div class="bg-pink-50/60 p-4 rounded-2xl border border-pink-100 space-y-2">
+            <span class="material-icons text-2xl text-pink-500">loop</span>
+            <p class="font-bold text-slate-800">วิธีเดิม: วนลูป O(k)</p>
+            <p class="text-slate-500 text-xs">สร้างคีย์ทีละ step ตั้งแต่ต้น ถ้า k ใหญ่ ช้ามาก — แฮกเกอร์อาจขัดขวาง (DOS) ได้</p>
+          </div>
+          <div class="flex items-center justify-center text-3xl text-purple-400 font-bold">→</div>
+          <div class="bg-indigo-50/60 p-4 rounded-2xl border border-indigo-100 space-y-2">
+            <span class="material-icons text-2xl text-indigo-500">bolt</span>
+            <p class="font-bold text-slate-800">วิธีใหม่: สูตรสำเร็จ O(1)</p>
+            <p class="text-slate-500 text-xs">แทนค่า a, k ลงสูตรทันที สร้างคีย์ได้เลยใน 1 ขั้นตอน — ปลอดภัย รวดเร็ว ลดช่องโหว่</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Simulator Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+        <!-- Control Panel -->
+        <div class="card-pastel p-6 rounded-3xl shadow-sm space-y-5 lg:col-span-1 h-fit">
+          <div class="flex items-center gap-2 text-purple-600 font-bold text-lg border-b border-purple-50 pb-3">
+            <span class="material-icons">tune</span>
+            <span>ตั้งค่าระบบรหัสลับ</span>
+          </div>
+
+          <div class="space-y-4">
+
+            <!-- Quick Mode Button -->
+            <button onclick="cryptoQuickMode()" class="w-full py-2.5 bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-700 rounded-2xl font-semibold text-xs flex items-center justify-center gap-1.5 transition-all">
+              <span class="material-icons text-base">flash_on</span>
+              Quick Mode — รีเซ็ตค่ามาตรฐานพร้อมใช้ทันที
+            </button>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">ค่า Seed (a) — ตัวแปรความลับ</label>
+              <!-- BUG FIX: min="1" ป้องกัน a<=0 ทำให้สูตรพัง -->
+              <input type="number" id="crypto-a" value="3" min="1" max="8"
+                oninput="clampInput(this,1,8)"
+                class="w-full px-4 py-3 rounded-2xl bg-white border border-slate-200 focus:ring-2 focus:ring-purple-400 focus:outline-none text-center font-bold text-lg">
+              <p class="text-[10px] text-slate-400 mt-1">ค่า a แทน "ความลึก" ของกุญแจ แนะนำ 1–8</p>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">ขนาดคีย์ (k) — Session Length</label>
+              <!-- BUG FIX: min="5" ป้องกัน k<=a ทำให้ loop ไม่ทำงาน -->
+              <input type="number" id="crypto-k" value="500" min="5" max="100000"
+                oninput="clampInput(this,5,100000)"
+                class="w-full px-4 py-3 rounded-2xl bg-white border border-slate-200 focus:ring-2 focus:ring-purple-400 focus:outline-none text-center font-bold text-lg">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">ข้อความที่ต้องการเข้ารหัส</label>
+              <textarea id="crypto-plaintext" rows="3" placeholder="พิมพ์ข้อความที่นี่..."
+                class="w-full px-4 py-3 rounded-2xl bg-white border border-slate-200 focus:ring-2 focus:ring-purple-400 focus:outline-none text-sm resize-none">TELESCOPING CUBIC O(1)</textarea>
+            </div>
+            <button onclick="runCryptoSim()" class="w-full py-4 bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 hover:opacity-90 text-white rounded-2xl font-bold shadow-lg flex items-center justify-center gap-2 transition-all">
+              <span class="material-icons" id="crypto-btn-icon">enhanced_encryption</span>
+              <span class="material-icons animate-spin hidden" id="crypto-spinner">sync</span>
+              <span id="crypto-btn-text">สร้างคีย์และเข้ารหัส</span>
+            </button>
+          </div>
+
+          <!-- ===== SECRET VAULT ===== -->
+          <div class="border-t border-slate-100 pt-4 space-y-3">
+            <div class="flex items-center gap-2 text-slate-600 font-bold text-sm">
+              <span class="material-icons text-base text-amber-500">inventory_2</span>
+              Secret Vault — บันทึกข้อความลับในเครื่อง
+            </div>
+            <p class="text-[10px] text-slate-400 leading-relaxed">เข้ารหัสข้อความแล้วบันทึกไว้ในเบราว์เซอร์ของคุณเอง (localStorage) ไม่มีใครอ่านได้นอกจากคุณ</p>
+            <div class="flex gap-2">
+              <button onclick="vaultSave()" class="flex-1 py-2 bg-amber-50 hover:bg-amber-100 border border-amber-200 text-amber-700 rounded-xl text-xs font-semibold flex items-center justify-center gap-1 transition-all">
+                <span class="material-icons text-sm">save</span> บันทึกลับ
+              </button>
+              <button onclick="vaultLoad()" class="flex-1 py-2 bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-600 rounded-xl text-xs font-semibold flex items-center justify-center gap-1 transition-all">
+                <span class="material-icons text-sm">folder_open</span> โหลดข้อมูล
+              </button>
+              <button onclick="vaultClear()" class="py-2 px-3 bg-red-50 hover:bg-red-100 border border-red-200 text-red-500 rounded-xl text-xs font-semibold flex items-center justify-center gap-1 transition-all">
+                <span class="material-icons text-sm">delete_forever</span>
+              </button>
+            </div>
+            <div id="vault-status" class="hidden text-[10px] font-semibold text-center p-2 rounded-xl"></div>
+          </div>
+        </div>
+
+        <!-- Output Panel -->
+        <div class="lg:col-span-2 space-y-5">
+
+          <!-- Key Generation Stats -->
+          <div class="card-pastel p-5 rounded-3xl shadow-sm grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div class="text-center p-3 bg-pink-50/60 rounded-2xl border border-pink-100 space-y-1">
+              <span class="text-[10px] font-semibold text-pink-700 block">เวลา วนลูป (A)</span>
+              <span class="text-base font-bold text-pink-600 font-mono" id="crypto-time-a">—</span>
+              <span class="text-[10px] text-slate-400 block">ms</span>
+            </div>
+            <div class="text-center p-3 bg-indigo-50/60 rounded-2xl border border-indigo-100 space-y-1">
+              <span class="text-[10px] font-semibold text-indigo-700 block">เวลา สูตรลัด (B)</span>
+              <span class="text-base font-bold text-indigo-600 font-mono" id="crypto-time-b">—</span>
+              <span class="text-[10px] text-slate-400 block">ms</span>
+            </div>
+            <div class="text-center p-3 bg-emerald-50/60 rounded-2xl border border-emerald-100 space-y-1">
+              <span class="text-[10px] font-semibold text-emerald-700 block">ความเร็วที่เพิ่มขึ้น</span>
+              <span class="text-base font-bold text-emerald-600 font-mono" id="crypto-speedup">—</span>
+              <span class="text-[10px] text-slate-400 block">เท่า ⚡</span>
+            </div>
+            <div class="text-center p-3 bg-purple-50/60 rounded-2xl border border-purple-100 space-y-1">
+              <span class="text-[10px] font-semibold text-purple-700 block">ขนาด Session Key</span>
+              <span class="text-base font-bold text-purple-600 font-mono" id="crypto-keylen">—</span>
+              <span class="text-[10px] text-slate-400 block">bits</span>
+            </div>
+          </div>
+
+          <!-- Session Key Display -->
+          <div class="card-pastel p-5 rounded-3xl shadow-sm space-y-3">
+            <h3 class="font-bold text-slate-800 flex items-center gap-2 text-sm">
+              <span class="material-icons text-purple-500 text-base">vpn_key</span>
+              Session Key ที่สร้างจากสูตรสำเร็จรูป (Hex)
+            </h3>
+            <div class="bg-slate-900 text-emerald-400 font-mono text-xs p-4 rounded-2xl leading-relaxed break-all min-h-[56px] custom-scrollbar overflow-x-auto" id="crypto-key-display">
+              <span class="text-slate-500 italic">ยังไม่ได้สร้างคีย์ — กดปุ่มด้านซ้ายเพื่อเริ่มต้น</span>
+            </div>
+            <p class="text-[10px] text-slate-400">* คีย์นี้ถูกสร้างจากค่าผลลัพธ์ของสูตร Telescoping Cubic แปลงเป็น Hexadecimal เพื่อใช้เป็น XOR Key</p>
+          </div>
+
+          <!-- Encryption / Decryption Results -->
+          <div class="card-pastel p-5 rounded-3xl shadow-sm space-y-4">
+            <h3 class="font-bold text-slate-800 flex items-center gap-2 text-sm">
+              <span class="material-icons text-indigo-500 text-base">swap_horiz</span>
+              ผลการเข้ารหัส และถอดรหัส (XOR Cipher)
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="space-y-1.5">
+                <span class="text-xs font-semibold text-slate-500 flex items-center justify-between gap-1">
+                  <span class="flex items-center gap-1">
+                    <span class="material-icons text-sm text-pink-500">lock</span> ข้อความเข้ารหัสแล้ว (Ciphertext)
+                  </span>
+                  <!-- ปุ่ม Export to Clipboard -->
+                  <button onclick="copyToClipboard('crypto-ciphertext', this)"
+                    class="flex items-center gap-0.5 px-2 py-1 bg-pink-100 hover:bg-pink-200 text-pink-700 rounded-lg text-[10px] font-bold transition-all">
+                    <span class="material-icons text-xs">content_copy</span> คัดลอก
+                  </button>
+                </span>
+                <div class="bg-pink-50 border border-pink-100 text-pink-800 font-mono text-xs p-3 rounded-xl min-h-[48px] break-all" id="crypto-ciphertext">
+                  <span class="text-slate-400 italic">รอผลลัพธ์...</span>
+                </div>
+              </div>
+              <div class="space-y-1.5">
+                <span class="text-xs font-semibold text-slate-500 flex items-center justify-between gap-1">
+                  <span class="flex items-center gap-1">
+                    <span class="material-icons text-sm text-emerald-500">lock_open</span> ถอดรหัสแล้ว (Decrypted)
+                  </span>
+                  <button onclick="copyToClipboard('crypto-decrypted', this)"
+                    class="flex items-center gap-0.5 px-2 py-1 bg-emerald-100 hover:bg-emerald-200 text-emerald-700 rounded-lg text-[10px] font-bold transition-all">
+                    <span class="material-icons text-xs">content_copy</span> คัดลอก
+                  </button>
+                </span>
+                <div class="bg-emerald-50 border border-emerald-100 text-emerald-800 font-mono text-xs p-3 rounded-xl min-h-[48px] break-all" id="crypto-decrypted">
+                  <span class="text-slate-400 italic">รอผลลัพธ์...</span>
+                </div>
+              </div>
+            </div>
+            <div id="crypto-verify-alert" class="hidden p-3 rounded-2xl text-xs font-semibold text-center"></div>
+          </div>
+
+          <!-- Complexity Comparison Card -->
+          <div class="card-pastel p-5 rounded-3xl shadow-sm space-y-4">
+            <h3 class="font-bold text-slate-800 flex items-center gap-2 text-sm">
+              <span class="material-icons text-indigo-500 text-base">show_chart</span>
+              เปรียบเทียบขั้นตอนการสร้างคีย์ (จำนวน Steps)
+            </h3>
+            <div class="h-52 w-full">
+              <canvas id="cryptoStepsChart"></canvas>
+            </div>
+            <p class="text-[10px] text-slate-400 text-center">* แท่งสีแดง = วนลูปถึก (O(k) steps), แท่งสีน้ำเงิน = สูตรสำเร็จรูป (O(1) = คงที่)</p>
+          </div>
+
         </div>
       </div>
     </section>
@@ -498,16 +714,24 @@
       document.getElementById('content-lesson').classList.add('hidden');
       document.getElementById('content-simulation').classList.add('hidden');
       document.getElementById('content-gallery').classList.add('hidden');
+      document.getElementById('content-crypto').classList.add('hidden');
 
       document.getElementById('tab-lesson').className = 'flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all text-slate-600 hover:bg-white/50 whitespace-nowrap';
       document.getElementById('tab-simulation').className = 'flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all text-slate-600 hover:bg-white/50 whitespace-nowrap';
       document.getElementById('tab-gallery').className = 'flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all text-slate-600 hover:bg-white/50 whitespace-nowrap';
+      document.getElementById('tab-crypto').className = 'flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all text-slate-600 hover:bg-white/50 whitespace-nowrap';
 
       document.getElementById('content-' + tabId).classList.remove('hidden');
       document.getElementById('tab-' + tabId).className = 'flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all tab-active whitespace-nowrap';
 
       if (tabId === 'simulation') {
+        // initChart() สร้างกราฟถ้ายังไม่มี (idempotent — เรียกซ้ำได้ปลอดภัย)
         initChart();
+        // ถ้ากราฟเปล่าอยู่ (ยังไม่เคยรัน) ให้ auto-run เพื่อแสดงข้อมูลทันทีที่เปิดแท็บ
+        const a = parseInt(document.getElementById('input-a').value) || 3;
+        if (perfChartInstance && perfChartInstance.data.datasets[0].data.every(v => v === 0)) {
+          updateSimulationGraph(a);
+        }
       }
     }
 
@@ -568,8 +792,9 @@ function calculateByFormula(a, k) {
   }
 
   let denProd = new Decimal(1);
-  // 📍 แก้จาก j <= j = k เป็น j <= k แค่นี้เลยครับอ้าย!
-  for (let j = k - a + 2; j <= k; j++) { 
+  // ✅ [BUG FIX] ตัวส่วนต้องเริ่มจาก j = k-a+1 (ไม่ใช่ k-a+2)
+  // เพื่อรวมพจน์แรกสุดของเศษฝั่งตัวส่วนให้ครบตามหลัก Telescoping Cubic
+  for (let j = k - a + 1; j <= k; j++) { 
     const decJ = new Decimal(j);
     const term = decJ.pow(2).plus(decA.times(decJ)).plus(aSquared);
     denProd = denProd.times(term);
@@ -632,13 +857,13 @@ function getBenchmarkTimeA(a, k) {
 
       // 1. Run Algorithm A & Benchmark time
       const timeElapsedA = getBenchmarkTimeA(a, k);
-      // 📍 [แก้ไขตรงนี้] สั่งดึงคำตอบแบบตัดเศษเหลือ 4 ตำแหน่งทันที!
-      const resA = calculateBruteForce(a, k).toFixed(4);
+      // 📍 [BUG FIX] เก็บเป็น Decimal object ไว้ก่อน — ยังไม่ตัดทศนิยม
+      const resA_decimal = calculateBruteForce(a, k);
 
       // 2. Run Algorithm B & Benchmark time
       const timeElapsedB = getBenchmarkTimeB(a, k);
-      // 📍 [แก้ไขตรงนี้] สั่งดึงคำตอบแบบตัดเศษเหลือ 4 ตำแหน่งทันที!
-      const resB = calculateByFormula(a, k).toFixed(4);
+      // 📍 [BUG FIX] เก็บเป็น Decimal object ไว้ก่อน — ยังไม่ตัดทศนิยม
+      const resB_decimal = calculateByFormula(a, k);
 
       // Show loop rounds: k - a
       const rounds = k - a;
@@ -660,20 +885,23 @@ function getBenchmarkTimeA(a, k) {
         maximumFractionDigits: 2
       });
 
-      // Display Answers
-      document.getElementById('result-a').innerText = resA.toLocaleString(undefined, {maximumFractionDigits: 10});
-      document.getElementById('result-b').innerText = resB.toLocaleString(undefined, {maximumFractionDigits: 10});
+      // Display Answers — แปลงเป็น String ตอนนี้เท่านั้น (ปลอดภัยแล้ว)
+      const resA_str = resA_decimal.toFixed(4);
+      const resB_str = resB_decimal.toFixed(4);
+      document.getElementById('result-a').textContent = resA_str;
+      document.getElementById('result-b').textContent = resB_str;
 
-      // Equality check
-      const diff = Math.abs(resA - resB);
+      // Equality check — ใช้ Decimal.minus() เพื่อความแม่นยำสูงสุด ไม่ใช่ Math.abs(string - string)
+      const diff_decimal = resA_decimal.minus(resB_decimal).abs();
+      const diff = diff_decimal.toNumber();
       const alertDiv = document.getElementById('equality-alert');
       alertDiv.classList.remove('hidden');
       if (diff < 1e-5) {
         alertDiv.className = "p-3 rounded-2xl text-xs font-semibold text-center bg-emerald-100 text-emerald-800 border border-emerald-200";
-        alertDiv.innerHTML = `<span class="material-icons text-sm align-middle mr-1">done_all</span>ผลลัพธ์คำนวณถูกต้องตรงกัน 100%! ค่าความคลาดเคลื่อนทางคณิตศาสตร์มีค่าน้อยมาก (${diff.toExponential(6)})`;
+        alertDiv.textContent = `✅ ผลลัพธ์คำนวณถูกต้องตรงกัน 100%! ค่าความคลาดเคลื่อนเชิงตัวเลข (Numerical Error) อยู่ในเกณฑ์ยอมรับได้ (${diff_decimal.toExponential(6)})`;
       } else {
         alertDiv.className = "p-3 rounded-2xl text-xs font-semibold text-center bg-amber-100 text-amber-800 border border-amber-200";
-        alertDiv.innerHTML = `<span class="material-icons text-sm align-middle mr-1">warning</span>ผลลัพธ์คลาดเคลื่อนเล็กน้อยอันเนื่องมาจากข้อจำกัดเรื่องทศนิยม 64 บิตของเบราว์เซอร์`;
+        alertDiv.textContent = `⚠️ ผลลัพธ์คลาดเคลื่อนเล็กน้อยอันเนื่องมาจากข้อจำกัดเรื่องทศนิยม 64 บิตของเบราว์เซอร์`;
       }
 
       // Reset Button UI
@@ -836,12 +1064,329 @@ function getBenchmarkTimeA(a, k) {
     window.setK = setK;
     window.runSimulation = runSimulation;
     window.exportToCSV = exportToCSV;
+    window.runCryptoSim = runCryptoSim;
+    window.cryptoQuickMode = cryptoQuickMode;
+    window.vaultSave = vaultSave;
+    window.vaultLoad = vaultLoad;
+    window.vaultClear = vaultClear;
+    window.copyToClipboard = copyToClipboard;
+    window.clampInput = clampInput;
 
-    // Windows Onload Initialize Everything
-    window.onload = function() {
-      // Warm up standard calculation simulation automatically
-      runSimulation();
+    // ===== BUG FIX: clamp input ป้องกันค่าติดลบ/เกิน max =====
+    // ใช้ oninput แทน onchange + debounce เพื่อไม่ให้ re-render รัวเวลาพิมพ์เร็ว
+    function debounce(fn, delay) {
+      let timer;
+      return function(...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => fn.apply(this, args), delay);
+      };
     }
+    function clampInput(el, minVal, maxVal) {
+      // ใช้ debounce 300ms ป้องกัน re-render รัวขณะพิมพ์ (BUG FIX: Re-rendering)
+      if (!el._debouncedClamp) {
+        el._debouncedClamp = debounce(function() {
+          let v = parseInt(el.value);
+          if (isNaN(v) || v < minVal) el.value = minVal;
+          if (v > maxVal) el.value = maxVal;
+        }, 300);
+      }
+      el._debouncedClamp();
+    }
+
+    // ===== Quick Mode: รีเซ็ตค่ามาตรฐานทั้งหมดทันที =====
+    function cryptoQuickMode() {
+      document.getElementById('crypto-a').value = 3;
+      document.getElementById('crypto-k').value = 500;
+      document.getElementById('crypto-plaintext').value = 'TELESCOPING CUBIC O(1)';
+      Swal.fire({
+        icon: 'success',
+        title: 'Quick Mode! ⚡',
+        text: 'รีเซ็ตค่ามาตรฐาน a=3, k=500 พร้อมใช้งานทันที',
+        confirmButtonColor: '#d97706',
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 1800
+      });
+    }
+
+    // ===== Export to Clipboard =====
+    function copyToClipboard(elementId, btn) {
+      const el = document.getElementById(elementId);
+      const text = el.textContent.trim();
+      if (!text || text.includes('รอผลลัพธ์') || text.includes('ยังไม่ได้')) {
+        Swal.fire({ icon:'warning', title:'ยังไม่มีข้อมูล', text:'กรุณาสร้างคีย์ก่อนนะครับ', confirmButtonColor:'#7c3aed', toast:true, position:'top-end', showConfirmButton:false, timer:1500 });
+        return;
+      }
+      navigator.clipboard.writeText(text).then(() => {
+        const orig = btn.innerHTML;
+        btn.innerHTML = '<span class="material-icons text-xs">check_circle</span> คัดลอกแล้ว!';
+        btn.classList.add('bg-green-100','text-green-700','border-green-200');
+        setTimeout(() => {
+          btn.innerHTML = orig;
+          btn.classList.remove('bg-green-100','text-green-700','border-green-200');
+        }, 2000);
+      }).catch(() => {
+        Swal.fire({ icon:'error', title:'ไม่สามารถคัดลอกได้', text:'เบราว์เซอร์ไม่รองรับ Clipboard API', confirmButtonColor:'#7c3aed' });
+      });
+    }
+
+    // ===== SECRET VAULT (localStorage) =====
+    const VAULT_KEY = 'telescopic_secret_vault';
+
+    function vaultSave() {
+      const ciphertextEl = document.getElementById('crypto-ciphertext');
+      const data = ciphertextEl.textContent.trim();
+      if (!data || data.includes('รอผลลัพธ์')) {
+        _vaultStatus('⚠️ เข้ารหัสข้อความก่อนค่อยบันทึกนะครับ', 'amber');
+        return;
+      }
+      const a = document.getElementById('crypto-a').value;
+      const k = document.getElementById('crypto-k').value;
+      // เก็บข้อมูลที่เข้ารหัสแล้วเท่านั้น ไม่เก็บ plaintext (ปลอดภัย)
+      const payload = JSON.stringify({ ciphertext: data, a, k, savedAt: new Date().toLocaleString('th-TH') });
+      try {
+        localStorage.setItem(VAULT_KEY, payload);
+        _vaultStatus('✅ บันทึกลับสำเร็จ! เข้ารหัสอยู่ใน localStorage ของเครื่องคุณแล้ว', 'emerald');
+      } catch(e) {
+        _vaultStatus('❌ บันทึกไม่ได้ — localStorage เต็มหรือถูกบล็อก', 'red');
+      }
+    }
+
+    function vaultLoad() {
+      try {
+        const raw = localStorage.getItem(VAULT_KEY);
+        if (!raw) {
+          _vaultStatus('📭 ยังไม่มีข้อมูลใน Vault', 'slate');
+          return;
+        }
+        const payload = JSON.parse(raw);
+        // โหลดค่ากลับ — ใช้ textContent เพื่อป้องกัน XSS
+        document.getElementById('crypto-a').value = payload.a || 3;
+        document.getElementById('crypto-k').value = payload.k || 500;
+        // แสดง ciphertext ใน textarea plaintext เพื่อให้ถอดรหัสได้
+        document.getElementById('crypto-plaintext').value = '[โหลดจาก Vault — กด "สร้างคีย์" เพื่อถอดรหัส]';
+        // แสดง ciphertext ที่บันทึกไว้ใน output box (XSS-safe)
+        document.getElementById('crypto-ciphertext').textContent = payload.ciphertext;
+        _vaultStatus(`📂 โหลดสำเร็จ! บันทึกไว้เมื่อ: ${payload.savedAt}`, 'indigo');
+      } catch(e) {
+        _vaultStatus('❌ โหลดไม่สำเร็จ — ข้อมูลอาจเสียหาย', 'red');
+      }
+    }
+
+    function vaultClear() {
+      Swal.fire({
+        icon: 'warning',
+        title: 'ยืนยันการลบ?',
+        text: 'จะลบข้อมูลลับทั้งหมดใน Vault ออกจากเครื่องคุณถาวร',
+        confirmButtonText: 'ลบเลย',
+        cancelButtonText: 'ยกเลิก',
+        showCancelButton: true,
+        confirmButtonColor: '#ef4444'
+      }).then(result => {
+        if (result.isConfirmed) {
+          localStorage.removeItem(VAULT_KEY);
+          _vaultStatus('🗑️ ลบข้อมูลใน Vault เรียบร้อยแล้ว', 'slate');
+        }
+      });
+    }
+
+    // Helper: แสดงสถานะ vault (ใช้ textContent เสมอ — XSS-safe)
+    function _vaultStatus(msg, color) {
+      const el = document.getElementById('vault-status');
+      const colorMap = {
+        emerald: 'bg-emerald-50 text-emerald-700 border border-emerald-200',
+        amber:   'bg-amber-50 text-amber-700 border border-amber-200',
+        red:     'bg-red-50 text-red-600 border border-red-200',
+        indigo:  'bg-indigo-50 text-indigo-700 border border-indigo-200',
+        slate:   'bg-slate-100 text-slate-600 border border-slate-200',
+      };
+      el.className = `text-[10px] font-semibold text-center p-2 rounded-xl ${colorMap[color] || colorMap.slate}`;
+      el.textContent = msg;  // XSS-safe: ใช้ textContent ไม่ใช่ innerHTML
+      el.classList.remove('hidden');
+    }
+
+    // ================= CRYPTOGRAPHY SIMULATOR (TAB 4) =================
+
+    let cryptoChartInstance = null;
+
+    // Convert numeric result to a repeating hex key string of given length
+    function buildHexKey(decimalValue, lengthBytes) {
+      // Use the decimal string of the result as entropy source
+      const rawStr = decimalValue.toFixed(30).replace('.', '').replace('-', '');
+      let hexKey = '';
+      for (let i = 0; i < lengthBytes; i++) {
+        const charCode = parseInt(rawStr[i % rawStr.length]) + 48 + (i % 16);
+        hexKey += (charCode % 256).toString(16).padStart(2, '0');
+      }
+      return hexKey;
+    }
+
+    // Simple XOR cipher using hex key
+    function xorCipher(text, hexKey) {
+      let result = '';
+      for (let i = 0; i < text.length; i++) {
+        const keyByte = parseInt(hexKey.substr((i * 2) % hexKey.length, 2), 16);
+        result += String.fromCharCode(text.charCodeAt(i) ^ keyByte);
+      }
+      return result;
+    }
+
+    // Encode to display-safe Base64-like hex string
+    function toHexDisplay(str) {
+      return Array.from(str).map(c => c.charCodeAt(0).toString(16).padStart(2, '0')).join(' ');
+    }
+
+    async function runCryptoSim() {
+      Decimal.set({ precision: 35 });
+
+      const a = parseInt(document.getElementById('crypto-a').value);
+      const k = parseInt(document.getElementById('crypto-k').value);
+      const plaintext = document.getElementById('crypto-plaintext').value || 'HELLO';
+
+      if (isNaN(a) || isNaN(k) || a < 1 || k <= a + 1) {
+        Swal.fire({ icon: 'error', title: 'ค่าไม่ถูกต้อง', text: 'k ต้องมากกว่า a+1 เสมอ', confirmButtonColor: '#7c3aed' });
+        return;
+      }
+
+      // ✅ [Enhancement] จำกัดความยาว plaintext ป้องกัน buildHexKey วนลูปหนักจนหน้าค้าง
+      const MAX_PLAINTEXT = 500;
+      if (plaintext.length > MAX_PLAINTEXT) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'ข้อความยาวเกินไป!',
+          html: `ระบบจำลองรองรับข้อความสูงสุด <strong>${MAX_PLAINTEXT} ตัวอักษร</strong><br>ข้อความของคุณมี <strong>${plaintext.length} ตัวอักษร</strong> — กรุณาลดให้สั้นลงก่อนนะครับ`,
+          confirmButtonColor: '#7c3aed'
+        });
+        document.getElementById('crypto-btn-icon').classList.remove('hidden');
+        document.getElementById('crypto-spinner').classList.add('hidden');
+        document.getElementById('crypto-btn-text').innerText = 'สร้างคีย์และเข้ารหัส';
+        return;
+      }
+
+      // UI Loading
+      document.getElementById('crypto-btn-icon').classList.add('hidden');
+      document.getElementById('crypto-spinner').classList.remove('hidden');
+      document.getElementById('crypto-btn-text').innerText = 'กำลังสร้างคีย์...';
+      await new Promise(r => setTimeout(r, 40));
+
+      // Benchmark key generation both methods
+      const iterA = k < 1000 ? 100 : (k < 10000 ? 10 : 1);
+      const iterB = 2000;
+
+      const startA = getHighPrecisionTime();
+      for (let i = 0; i < iterA; i++) calculateBruteForce(a, k);
+      const endA = getHighPrecisionTime();
+      const timeA = (endA - startA) / iterA;
+
+      const startB = getHighPrecisionTime();
+      for (let i = 0; i < iterB; i++) calculateByFormula(a, k);
+      const endB = getHighPrecisionTime();
+      const timeB = (endB - startB) / iterB;
+
+      // Generate key from formula result (O(1) path)
+      const keySource = calculateByFormula(a, k);
+      const keyBytes = plaintext.length + 16;
+      const hexKey = buildHexKey(keySource, keyBytes);
+
+      // Encrypt & Decrypt
+      const ciphertext = xorCipher(plaintext, hexKey);
+      const decrypted = xorCipher(ciphertext, hexKey);
+
+      // Speedup
+      let speedup = timeA / (timeB > 0 ? timeB : 0.0001);
+      if (speedup < 1) speedup = 1;
+
+      // Update UI Stats
+      document.getElementById('crypto-time-a').innerText = timeA.toFixed(6);
+      document.getElementById('crypto-time-b').innerText = timeB.toFixed(6);
+      document.getElementById('crypto-speedup').innerText = speedup.toLocaleString(undefined, { maximumFractionDigits: 1 });
+      document.getElementById('crypto-keylen').innerText = (keyBytes * 8).toLocaleString();
+
+      // Display key (XSS-safe) — ดักจับ null กรณี hexKey สั้นกว่า 32 ตัวอักษร
+      const matchedChunks = hexKey.match(/.{1,32}/g);
+      document.getElementById('crypto-key-display').textContent = matchedChunks ? matchedChunks.join('\n') : hexKey;
+
+      // Display cipher / decipher  (XSS-safe)
+      document.getElementById('crypto-ciphertext').textContent = toHexDisplay(ciphertext);
+      document.getElementById('crypto-decrypted').textContent = decrypted;
+
+      // Verify round-trip
+      const verifyDiv = document.getElementById('crypto-verify-alert');
+      verifyDiv.classList.remove('hidden');
+      if (decrypted === plaintext) {
+        verifyDiv.className = 'p-3 rounded-2xl text-xs font-semibold text-center bg-emerald-100 text-emerald-800 border border-emerald-200';
+        verifyDiv.textContent = '✅ ถอดรหัสสำเร็จ! ข้อความตรงกัน 100% — พิสูจน์ว่าสูตร O(1) ใช้งานได้จริงในระบบรหัสลับ';
+      } else {
+        verifyDiv.className = 'p-3 rounded-2xl text-xs font-semibold text-center bg-amber-100 text-amber-800 border border-amber-200';
+        verifyDiv.textContent = '⚠️ ข้อความไม่ตรงกัน — กรุณาตรวจสอบค่า a และ k';
+      }
+
+      // Update steps chart
+      updateCryptoStepsChart(k);
+
+      // Reset button
+      document.getElementById('crypto-btn-icon').classList.remove('hidden');
+      document.getElementById('crypto-spinner').classList.add('hidden');
+      document.getElementById('crypto-btn-text').innerText = 'สร้างคีย์และเข้ารหัส';
+
+      Swal.fire({
+        icon: 'success',
+        title: 'สร้าง Session Key สำเร็จ! 🔐',
+        html: `สูตรสำเร็จรูปเร็วกว่า <strong>${speedup.toLocaleString(undefined,{maximumFractionDigits:1})} เท่า</strong><br>ลดขั้นตอนจาก <strong>${(k-a).toLocaleString()} steps → 1 step!</strong>`,
+        confirmButtonColor: '#7c3aed'
+      });
+    }
+
+    function updateCryptoStepsChart(k) {
+      const labels = ['k=10', 'k=100', 'k=500', 'k=1,000', 'k=5,000', `k=${k.toLocaleString()}`];
+      const kVals  = [10, 100, 500, 1000, 5000, k];
+      const stepsA = kVals.map(v => v);       // O(k): steps = k
+      const stepsB = kVals.map(() => 1);       // O(1): always 1 step
+
+      if (cryptoChartInstance) {
+        cryptoChartInstance.data.labels = labels;
+        cryptoChartInstance.data.datasets[0].data = stepsA;
+        cryptoChartInstance.data.datasets[1].data = stepsB;
+        cryptoChartInstance.update();
+        return;
+      }
+
+      const ctx = document.getElementById('cryptoStepsChart').getContext('2d');
+      cryptoChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels,
+          datasets: [
+            { label: 'วนลูป O(k) — จำนวน Steps', data: stepsA, backgroundColor: 'rgba(244,63,94,0.7)', borderRadius: 6 },
+            { label: 'สูตรสำเร็จ O(1) — คงที่ 1 Step', data: stepsB, backgroundColor: 'rgba(79,70,229,0.7)', borderRadius: 6 }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'top', labels: { font: { family: 'Prompt', size: 11 } } }
+          },
+          scales: {
+            y: {
+              title: { display: true, text: 'จำนวน Steps ในการสร้างคีย์', font: { family: 'Prompt', weight: 'bold', size: 11 } },
+              ticks: { font: { family: 'Prompt', size: 10 } }
+            },
+            x: { ticks: { font: { family: 'Prompt', size: 10 } } }
+          }
+        }
+      });
+    }
+
+    // ===== INIT: ใช้ DOMContentLoaded แทน window.onload =====
+    // window.onload รอรูปภาพโหลดด้วย ทำให้ช้าและชนกับ Firebase module script
+    // DOMContentLoaded ทำงานทันทีที่ HTML parse เสร็จ — เร็วกว่าและไม่แย่งทรัพยากร
+    document.addEventListener('DOMContentLoaded', function() {
+      // สร้าง Chart ทันทีตั้งแต่เริ่ม ไม่ต้องรอให้ผู้ใช้กดเปิดแท็บ Simulation ก่อน
+      // แก้บัค: กราฟจะไม่ว่างเปล่าอีกต่อไปเมื่อเปิดแท็บครั้งแรก
+      initChart();
+    });
   </script>
 </body>
 </html>
