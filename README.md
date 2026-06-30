@@ -2,6 +2,7 @@
 
 
 
+
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -97,11 +98,11 @@
         <button onclick="switchTab('simulation')" id="tab-simulation" class="flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all text-slate-600 hover:bg-white/50 whitespace-nowrap">
           <span class="material-icons text-lg">science</span> ระบบจำลองเวลา
         </button>
-        <button onclick="switchTab('gallery')" id="tab-gallery" class="flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all text-slate-600 hover:bg-white/50 whitespace-nowrap">
-          <span class="material-icons text-lg">photo_library</span> ภาพกิจกรรมการเรียนรู้
-        </button>
         <button onclick="switchTab('crypto')" id="tab-crypto" class="flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all text-slate-600 hover:bg-white/50 whitespace-nowrap">
           <span class="material-icons text-lg">lock</span> ประยุกต์: วิทยาการรหัสลับ
+        </button>
+        <button onclick="switchTab('gallery')" id="tab-gallery" class="flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all text-slate-600 hover:bg-white/50 whitespace-nowrap">
+          <span class="material-icons text-lg">photo_library</span> ภาพกิจกรรมการเรียนรู้
         </button>
       </nav>
     </div>
@@ -123,7 +124,7 @@
           </h2>
           <p class="text-slate-600 leading-relaxed text-sm sm:text-base">
             ยินดีต้อนรับสู่ระบบเรียนรู้เชิงโต้ตอบ! โครงงานนี้เกิดจากความตั้งใจที่จะรวมเอา **คณิตศาสตร์บริสุทธิ์ (Pure Mathematics)** ในส่วนของอนุกรมคูณสะสม (Cumulative Product) และหลักการของ **เทเลสโคปิก (Telescoping)** มาร่วมขับเคลื่อนการพัฒนาโปรแกรมคอมพิวเตอร์ 
-            ช่วยลดระยะเวลาประมวลผลและการจัดสรรหน่วยความจำ จากวิธีแบบตรง $O(k)$ เป็นวิธีลัดความเร็วแสง $O(1)$
+            ช่วยลดระยะเวลาประมวลผลและการจัดสรรหน่วยความจำ จากวิธีแบบตรง O(k) เป็นวิธีลัดความเร็วแสง O(1)
           </p>
         </div>
         <div class="md:w-1/3 flex justify-center">
@@ -173,7 +174,7 @@
               <div>
                 <h4 class="font-bold text-slate-800">Algorithm A: วิธีวนลูปประมวลผล (Brute-Force)</h4>
                 <p class="text-slate-600 mt-1">
-                  คอมพิวเตอร์คำนวณวงเล็บทีละวงเล็บ ตั้งแต่ $n = a+1$ ถึง $k$ หาก $k$ มีค่า 1,000,000 รอบ คอมพิวเตอร์ต้องทำงานซ้ำ ๆ 1 ล้านครั้ง! คิดเป็นความซับซ้อนเชิงเวลา <strong class="text-pink-600 font-semibold">O(k) (Linear Time)</strong>
+                  คอมพิวเตอร์คำนวณวงเล็บทีละวงเล็บ ตั้งแต่ n = a+1 ถึง k หาก k มีค่า 1,000,000 รอบ คอมพิวเตอร์ต้องทำงานซ้ำ ๆ 1 ล้านครั้ง! คิดเป็นความซับซ้อนเชิงเวลา <strong class="text-pink-600 font-semibold">O(k) (Linear Time)</strong>
                 </p>
               </div>
             </div>
@@ -183,7 +184,7 @@
               <div>
                 <h4 class="font-bold text-slate-800">Algorithm B: วิธีสูตรสำเร็จความเร็วแสง (Closed-Form)</h4>
                 <p class="text-slate-600 mt-1">
-                  เมื่อยุบรูปสูตรสำเร็จแล้ว คอมพิวเตอร์ไม่ต้องวิ่งลูปพจน์ซ้ำนับล้านตัว สามารถนำค่าขอบเขตบน ($k$) แทนค่าลงในสูตรสำเร็จรูปแล้วบวกลบคูณหารคำนวณผลลัพธ์ในครั้งเดียวได้ทันที คิดเป็นความซับซ้อนเชิงเวลา <strong class="text-indigo-600 font-semibold">O(1) (Constant Time)</strong>
+                  เมื่อยุบรูปสูตรสำเร็จแล้ว คอมพิวเตอร์ไม่ต้องวิ่งลูปพจน์ซ้ำนับล้านตัว สามารถนำค่าขอบเขตบน (k) แทนค่าลงในสูตรสำเร็จรูปแล้วบวกลบคูณหารคำนวณผลลัพธ์ในครั้งเดียวได้ทันที คิดเป็นความซับซ้อนเชิงเวลา <strong class="text-indigo-600 font-semibold">O(1) (Constant Time)</strong>
                 </p>
               </div>
             </div>
@@ -710,30 +711,41 @@
     }
 
     // Tab switcher logic
-    function switchTab(tabId) {
-      document.getElementById('content-lesson').classList.add('hidden');
-      document.getElementById('content-simulation').classList.add('hidden');
-      document.getElementById('content-gallery').classList.add('hidden');
-      document.getElementById('content-crypto').classList.add('hidden');
+function switchTab(tabId) {
+  document.getElementById('content-lesson').classList.add('hidden');
+  document.getElementById('content-simulation').classList.add('hidden');
+  document.getElementById('content-crypto').classList.add('hidden');
+  document.getElementById('content-gallery').classList.add('hidden');
 
-      document.getElementById('tab-lesson').className = 'flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all text-slate-600 hover:bg-white/50 whitespace-nowrap';
-      document.getElementById('tab-simulation').className = 'flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all text-slate-600 hover:bg-white/50 whitespace-nowrap';
-      document.getElementById('tab-gallery').className = 'flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all text-slate-600 hover:bg-white/50 whitespace-nowrap';
-      document.getElementById('tab-crypto').className = 'flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all text-slate-600 hover:bg-white/50 whitespace-nowrap';
+  document.getElementById('tab-lesson').className = 'flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all text-slate-600 hover:bg-white/50 whitespace-nowrap';
+  document.getElementById('tab-simulation').className = 'flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all text-slate-600 hover:bg-white/50 whitespace-nowrap';
+  document.getElementById('tab-crypto').className = 'flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all text-slate-600 hover:bg-white/50 whitespace-nowrap';
+  document.getElementById('tab-gallery').className = 'flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all text-slate-600 hover:bg-white/50 whitespace-nowrap';
 
-      document.getElementById('content-' + tabId).classList.remove('hidden');
-      document.getElementById('tab-' + tabId).className = 'flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all tab-active whitespace-nowrap';
+  document.getElementById('content-' + tabId).classList.remove('hidden');
+  document.getElementById('tab-' + tabId).className = 'flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all tab-active whitespace-nowrap';
 
-      if (tabId === 'simulation') {
-        // initChart() สร้างกราฟถ้ายังไม่มี (idempotent — เรียกซ้ำได้ปลอดภัย)
+  if (tabId === 'simulation') {
+    // 🌟 [BUG FIX] ใช้ try...catch ครอบไว้ เผื่อระบบจำลองเวลามีจุดพัง แท็บอื่นจะได้ยังกดได้ปกติ
+    try {
+      if (typeof initChart === 'function') {
         initChart();
-        // ถ้ากราฟเปล่าอยู่ (ยังไม่เคยรัน) ให้ auto-run เพื่อแสดงข้อมูลทันทีที่เปิดแท็บ
-        const a = parseInt(document.getElementById('input-a').value) || 3;
-        if (perfChartInstance && perfChartInstance.data.datasets[0].data.every(v => v === 0)) {
+      }
+      
+      const inputAElement = document.getElementById('input-a');
+      const a = inputAElement ? (parseInt(inputAElement.value) || 3) : 3;
+      
+      // เช็คว่ามีตัวแปร perfChartInstance อยู่จริงไหมก่อนจะไปสั่ง .data
+      if (typeof perfChartInstance !== 'undefined' && perfChartInstance && perfChartInstance.data && perfChartInstance.data.datasets[0].data.every(v => v === 0)) {
+        if (typeof updateSimulationGraph === 'function') {
           updateSimulationGraph(a);
         }
       }
+    } catch (err) {
+      console.error("เกิดข้อผิดพลาดในแท็บ simulation แต่ระบบยังทำงานต่อได้:", err);
     }
+  }
+}
 
     // Quick set parameter k
     function setK(val) {
@@ -750,7 +762,7 @@
       });
     }
 
-    // ================= ALGORITHMS IMPLEMENTATION =================
+ // ================= ALGORITHMS IMPLEMENTATION =================
 
     // Mathematical Helper for combination calculation C(n, r) USING Decimal.js
    function calculateCombination(n, r) {
@@ -780,27 +792,27 @@ function calculateBruteForce(a, k) {
 
 // Algorithm B: High-speed Closed-form Formula (O(1)) USING Decimal.js
 function calculateByFormula(a, k) {
-  const comb = calculateCombination(k + a + 1, 2 * a + 1);
-  const decA = new Decimal(a);
-  const aSquared = decA.pow(2);
+    const comb = calculateCombination(k + a + 1, 2 * a + 1);
+    const decA = new Decimal(a);
+    const aSquared = decA.pow(2);
 
-  let numProd = new Decimal(1);
-  for (let i = 2; i <= a; i++) {
-    const decI = new Decimal(i);
-    const term = decI.pow(2).plus(decA.times(decI)).plus(aSquared);
-    numProd = numProd.times(term);
-  }
+    let numProd = new Decimal(1);
+    // 🛠️ [POINT 1] เริ่มที่ i = 2 ตามสูตร และแก้เครื่องหมายตรงกลางจาก .minus เป็น .plus
+    for (let i = 2; i <= a; i++) {
+        const decI = new Decimal(i);
+        const termNum = decI.pow(2).plus(decA.times(decI)).plus(aSquared);
+        numProd = numProd.times(termNum);
+    }
 
-  let denProd = new Decimal(1);
-  // ✅ [BUG FIX] ตัวส่วนต้องเริ่มจาก j = k-a+1 (ไม่ใช่ k-a+2)
-  // เพื่อรวมพจน์แรกสุดของเศษฝั่งตัวส่วนให้ครบตามหลัก Telescoping Cubic
-  for (let j = k - a + 1; j <= k; j++) { 
-    const decJ = new Decimal(j);
-    const term = decJ.pow(2).plus(decA.times(decJ)).plus(aSquared);
-    denProd = denProd.times(term);
-  }
+    let denProd = new Decimal(1);
+    // 🛠️ [POINT 2] ขยับขอบเขตล่างของตัวส่วนให้เริ่มที่ j = k - a + 2 ตามสูตรในรูปภาพเป๊ะๆ
+    for (let j = k - a + 2; j <= k; j++) {
+        const decJ = new Decimal(j);
+        const termDen = decJ.pow(2).plus(decA.times(decJ)).plus(aSquared);
+        denProd = denProd.times(termDen);
+    }
 
-  return comb.times(numProd.dividedBy(denProd)); // คืนค่าตัวเลขเต็มๆ ไปใช้คำนวณ Benchmark ก่อน
+    return comb.times(numProd.dividedBy(denProd));
 }
 
 // ================= BENCHMARKING ENGINE WITH HIGH PRECISION =================
@@ -1336,49 +1348,55 @@ function getBenchmarkTimeA(a, k) {
         html: `สูตรสำเร็จรูปเร็วกว่า <strong>${speedup.toLocaleString(undefined,{maximumFractionDigits:1})} เท่า</strong><br>ลดขั้นตอนจาก <strong>${(k-a).toLocaleString()} steps → 1 step!</strong>`,
         confirmButtonColor: '#7c3aed'
       });
-    }
+     }
 
     function updateCryptoStepsChart(k) {
-      const labels = ['k=10', 'k=100', 'k=500', 'k=1,000', 'k=5,000', `k=${k.toLocaleString()}`];
-      const kVals  = [10, 100, 500, 1000, 5000, k];
-      const stepsA = kVals.map(v => v);       // O(k): steps = k
-      const stepsB = kVals.map(() => 1);       // O(1): always 1 step
+     const kVals = [...new Set([10, 100, 500, 1000, 5000, Number(k)])].sort((a, b) => a - b);
+     const labels = kVals.map(v => `k=${v.toLocaleString()}`);
+     const stepsA = kVals.map(v => v);       // O(k): steps = k
+     const stepsB = kVals.map(() => 1);       // O(1): always 1 step
 
-      if (cryptoChartInstance) {
-        cryptoChartInstance.data.labels = labels;
-        cryptoChartInstance.data.datasets[0].data = stepsA;
-        cryptoChartInstance.data.datasets[1].data = stepsB;
-        cryptoChartInstance.update();
-        return;
-      }
+    if (cryptoChartInstance) {
+      cryptoChartInstance.data.labels = labels;
+    cryptoChartInstance.data.datasets[0].data = stepsA;
+    cryptoChartInstance.data.datasets[1].data = stepsB;
+    cryptoChartInstance.update();
+    return;
+  }
 
-      const ctx = document.getElementById('cryptoStepsChart').getContext('2d');
-      cryptoChartInstance = new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels,
-          datasets: [
-            { label: 'วนลูป O(k) — จำนวน Steps', data: stepsA, backgroundColor: 'rgba(244,63,94,0.7)', borderRadius: 6 },
-            { label: 'สูตรสำเร็จ O(1) — คงที่ 1 Step', data: stepsB, backgroundColor: 'rgba(79,70,229,0.7)', borderRadius: 6 }
-          ]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: { position: 'top', labels: { font: { family: 'Prompt', size: 11 } } }
-          },
-          scales: {
-            y: {
-              title: { display: true, text: 'จำนวน Steps ในการสร้างคีย์', font: { family: 'Prompt', weight: 'bold', size: 11 } },
-              ticks: { font: { family: 'Prompt', size: 10 } }
-            },
-            x: { ticks: { font: { family: 'Prompt', size: 10 } } }
-          }
+  const ctx = document.getElementById('cryptoStepsChart').getContext('2d');
+  cryptoChartInstance = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        { label: 'วนลูป O(k) — จำนวน Steps', data: stepsA, backgroundColor: 'rgba(244,63,94,0.7)', borderRadius: 6 },
+        { label: 'สูตรสำเร็จ O(1) — คงที่ 1 Step', data: stepsB, backgroundColor: 'rgba(79,70,229,0.7)', borderRadius: 6 }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { 
+          position: 'top', 
+          align: 'center', // 🌟 บังคับให้ป้ายคำอธิบายอยู่ตรงกลางตลอดเวลา
+          labels: { 
+            boxWidth: 12,  // 🌟 ลดขนาดกล่องสีลงมาหน่อยเพื่อเพิ่มพื้นที่ให้ตัวหนังสือ ไม่เบียดขอบจอ
+            font: { family: 'Prompt', size: 11 } 
+          } 
         }
-      });
+      },
+      scales: {
+        y: {
+          title: { display: true, text: 'จำนวน Steps ในการสร้างคีย์', font: { family: 'Prompt', weight: 'bold', size: 11 } },
+          ticks: { font: { family: 'Prompt', size: 10 } }
+        },
+        x: { ticks: { font: { family: 'Prompt', size: 10 } } }
+      }
     }
-
+  });
+}
     // ===== INIT: ใช้ DOMContentLoaded แทน window.onload =====
     // window.onload รอรูปภาพโหลดด้วย ทำให้ช้าและชนกับ Firebase module script
     // DOMContentLoaded ทำงานทันทีที่ HTML parse เสร็จ — เร็วกว่าและไม่แย่งทรัพยากร
